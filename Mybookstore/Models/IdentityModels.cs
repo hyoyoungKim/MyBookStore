@@ -29,5 +29,9 @@ namespace Mybookstore.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Mybookstore.Models.AuthorsModels> AuthorsModels { get; set; }
+
+        public System.Data.Entity.DbSet<Mybookstore.Models.PublishersModels> PublishersModels { get; set; }
     }
 }
