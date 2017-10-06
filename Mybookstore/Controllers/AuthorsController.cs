@@ -6,6 +6,8 @@ using System.Data.SqlClient;
 using System.Web;
 using System.Web.Mvc;
 using Mybookstore.App_Code;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace Mybookstore.Models
 {
@@ -207,6 +209,29 @@ namespace Mybookstore.Models
             {
                 return View();
             }
+        }
+
+        public ActionResult GenerateReport()
+        {
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Server.MapPath("~/Reports/rptAuthors.rpt"));
+            rd.SetDatabaseLogon("kimhy", "1105916", "TAFT-CL316", "Mybookstore");
+            rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, System.Web.HttpContext.Current.Response, true, "Authors Report");
+            return View();
+        }
+
+        public ActionResult GenerateindividualReport(int? id)
+        {
+            if (id == null)
+                return RedirectToAction("Index");
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Server.MapPath("~/Reports/rptAuthorindividual.rpt"));
+            rd.SetDatabaseLogon("kimhy", "1105916", "TAFT-CL316", "Mybookstore");
+            rd.SetParameterValue("authorID", id);
+            rd.SetParameterValue("Username", "Kim Hyoyoung");
+            rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, System.Web.HttpContext.Current.Response, true, "Authors #" + id.ToString() + " Report");
+            return View();
         }
     }
 }

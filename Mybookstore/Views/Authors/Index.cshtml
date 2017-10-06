@@ -9,6 +9,12 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    <a href="@Url.Action("GenerateReport", "Authors")" class="btn btn-info"
+       onclick='return confirm("Generate Report?");'>
+        <i class="fa fa-print"</i> Print
+    </a>
+</p>
 <table id="tblAuthors" class="table">
     <thead>
         <th>
@@ -61,6 +67,10 @@
         <td>
             <a href="@Url.Action("Edit", "Authors", new { id=item.ID })" class="btn btn-xs btn-info">
                 <i class='fa fa-edit'></i>
+            </a>
+            <a href="@Url.Action("GenerateindividualReport", "Authors", new { id=item.ID })" class="btn btn-xs btn-default"
+               onclick='return confirm("Generate report?");'>
+                <i class='fa fa-print'></i>
             </a>
             <a href="@Url.Action("Delete", "Authors", new { id=item.ID })" class="btn btn-xs btn-danger"
                onclick='return confirm("Are you sure?");'>
